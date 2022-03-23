@@ -13,6 +13,7 @@ from django.conf import settings
 
 # Instructor model
 class Instructor(models.Model):
+    id = models.AutoField(primary_key=True)
     user = models.ForeignKey(
         settings.AUTH_USER_MODEL,
         on_delete=models.CASCADE,
@@ -26,6 +27,7 @@ class Instructor(models.Model):
 
 # Learner model
 class Learner(models.Model):
+    id = models.AutoField(primary_key=True)
     user = models.ForeignKey(
         settings.AUTH_USER_MODEL,
         on_delete=models.CASCADE,
@@ -55,6 +57,7 @@ class Learner(models.Model):
 
 # Course model
 class Course(models.Model):
+    id = models.AutoField(primary_key=True)
     name = models.CharField(null=False, max_length=30, default='online course')
     image = models.ImageField(upload_to='course_images/')
     description = models.CharField(max_length=1000)
@@ -71,6 +74,7 @@ class Course(models.Model):
 
 # Lesson model
 class Lesson(models.Model):
+    id = models.AutoField(primary_key=True)
     title = models.CharField(max_length=200, default="title")
     order = models.IntegerField(default=0)
     course = models.ForeignKey(Course, on_delete=models.CASCADE)
@@ -82,6 +86,7 @@ class Lesson(models.Model):
 # created between the user and course
 # And we could use the enrollment to track information such as exam submissions
 class Enrollment(models.Model):
+    id = models.AutoField(primary_key=True)
     AUDIT = 'audit'
     HONOR = 'honor'
     BETA = 'BETA'
@@ -104,6 +109,7 @@ class Enrollment(models.Model):
     # Has question content
     # Other fields and methods you would like to design
 class Question(models.Model):
+    id = models.AutoField(primary_key=True)
     course = models.ForeignKey(Course, on_delete=models.CASCADE)
     course = models.ManyToManyField(Course)
     question_text = models.CharField(max_length=100)
@@ -130,11 +136,13 @@ class Choice(models.Model):
 # One enrollment could have multiple submission
 # One submission could have multiple choices
 # One choice could belong to multiple submissions
-    choice_text = models.CharField()
+    id = models.AutoField(primary_key=True)
+    choice_text = models.CharField(max_length=100)
     is_correct = models.IntegerField()
     question_id = models.ForeignKey(Question, on_delete=models.CASCADE)
 
 class Submission(models.Model):
+    id = models.AutoField(primary_key=True)
     enrollment = models.ForeignKey(Enrollment, on_delete=models.CASCADE)
     choices = models.ManyToManyField(Choice)
 #    Other fields and methods you would like to design
