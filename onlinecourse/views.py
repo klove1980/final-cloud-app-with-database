@@ -132,4 +132,6 @@ def extract_answers(request):
         # For each selected choice, check if it is a correct answer or not
         # Calculate the total score
 def show_exam_result(request, course_id, submission_id):
-    
+    Course.objects.get(course_id=course_id)
+    Submission.objects.get(submission_id=submission_id)
+    Submission.objects.get(choice_id=choice_id) 
